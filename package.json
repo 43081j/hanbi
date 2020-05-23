@@ -1,5 +1,5 @@
 {
-  "name": "mock-lib",
+  "name": "hanbi",
   "version": "0.0.1",
   "description": "Mocking.",
   "main": "lib/main.js",
@@ -27,11 +27,15 @@
   },
   "homepage": "https://github.com/43081j/mock#readme",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^3.0.0",
-    "@typescript-eslint/parser": "^3.0.0",
-    "eslint": "^7.0.0",
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
+    "chai": "^4.2.0",
+    "eslint": "^7.12.0",
     "eslint-config-google": "^0.14.0",
-    "prettier": "^2.0.5",
-    "typescript": "^3.9.3"
+    "mocha": "^8.2.0",
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.3"
   }
 }

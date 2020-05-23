@@ -26,6 +26,15 @@
         "allowTemplateLiterals": true
       }
     ],
+    "valid-jsdoc": ["error", {
+      "requireParamDescription": false,
+      "requireParamType": false,
+      "requireReturnDescription": false,
+      "requireReturn": false,
+      "requireReturnType": false,
+      "prefer": {"returns": "return"}
+    }],
+    "operator-linebreak": "off",
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/explicit-member-accessibility": "error",
     "@typescript-eslint/member-delimiter-style": "error",
