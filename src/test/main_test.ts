@@ -11,6 +11,67 @@ describe('Stub', () => {
     });
   });
 
+  describe('calledWith', () => {
+    it('should determine if stub was called with args', () => {
+      const stub = lib.spy();
+      stub.handler(1, 2);
+      expect(stub.calledWith(1, 2)).to.equal(true);
+      expect(stub.calledWith(3, 4)).to.equal(false);
+    });
+
+    it('should support optional parameters', () => {
+      const stub = lib.stub((x: number, y?: number) => [x, y]);
+
+      stub.handler(1, 2);
+      stub.handler(1);
+
+      expect(stub.calledWith(1, 2)).to.equal(true);
+      expect(stub.calledWith(1)).to.equal(true);
+      expect(stub.calledWith(1, 3)).to.equal(false);
+    });
+  });
+
+  describe('firstCall', () => {
+    it('should retrieve the first call', () => {
+      const stub = lib.spy();
+      stub.handler(1);
+      stub.handler(2);
+      expect(stub.firstCall).to.deep.equal({
+        args: [1],
+        returnValue: undefined
+      });
+    });
+  });
+
+  describe('lastCall', () => {
+    it('should retrieve the last call', () => {
+      const stub = lib.spy();
+      stub.handler(1);
+      stub.handler(2);
+      expect(stub.lastCall).to.deep.equal({
+        args: [2],
+        returnValue: undefined
+      });
+    });
+  });
+
+  describe('getCall', () => {
+    it('should retrieve a specific call', () => {
+      const stub = lib.spy();
+      stub.handler(1);
+      stub.handler(2);
+
+      expect(stub.getCall(0)).to.deep.equal({
+        args: [1],
+        returnValue: undefined
+      });
+      expect(stub.getCall(1)).to.deep.equal({
+        args: [2],
+        returnValue: undefined
+      });
+    });
+  });
+
   describe('calls', () => {
     it('should return all calls tracked', () => {
       const stub = lib.spy();

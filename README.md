@@ -18,8 +18,8 @@ function.
 
 ```ts
 const test = spy();
-window.addEventListener('load', spy.handler);
-spy.called; // true once the event fires
+window.addEventListener('load', test.handler);
+test.called; // true once the event fires
 ```
 
 ## `stub(fn)`
@@ -80,6 +80,25 @@ class Stub {
    * List of all calls this stub has received
    */
   calls;
+
+  /**
+   * Retrieves an individual call
+   * @param index Index of the call to retrieve
+   * @return Call at the specified index
+   */
+  getCall(index);
+
+  /**
+   * Retrieves the first call
+   * @return Call object
+   */
+  firstCall;
+
+  /**
+   * Retrieves the last call
+   * @return Call object
+   */
+  lastCall;
 
   /**
    * Number of times this stub has been called

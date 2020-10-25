@@ -2,8 +2,8 @@
 type FunctionLike = (...args: any[]) => any;
 
 export interface StubCall<TArgs, TReturn> {
-  args: TArgs;
-  returnValue?: TReturn;
+  readonly args: TArgs;
+  readonly returnValue?: TReturn;
 }
 
 /**
@@ -41,6 +41,31 @@ export class Stub<T extends FunctionLike> {
    */
   public get calls(): ReadonlySet<StubCall<Parameters<T>, ReturnType<T>>> {
     return this._calls;
+  }
+
+  /**
+   * Retrieves an individual call
+   * @param index Index of the call to retrieve
+   * @return Call at the specified index
+   */
+  public getCall(index: number): StubCall<Parameters<T>, ReturnType<T>> {
+    return [...this._calls][index];
+  }
+
+  /**
+   * Retrieves the first call
+   * @return Call object
+   */
+  public get firstCall(): StubCall<Parameters<T>, ReturnType<T>> | undefined {
+    return this.getCall(0);
+  }
+
+  /**
+   * Retrieves the last call
+   * @return Call object
+   */
+  public get lastCall(): StubCall<Parameters<T>, ReturnType<T>> | undefined {
+    return this.getCall(this.callCount - 1);
   }
 
   /**
@@ -118,6 +143,19 @@ export class Stub<T extends FunctionLike> {
   public restore(): void {
     this.restoreCallback?.();
   }
+
+  /**
+   * Asserts that the stub was called with a set of arguments
+   * @param args Arguments to assert for
+   * @return Whether they were passed or not
+   */
+  public calledWith(...args: Parameters<T>): boolean {
+    return [...this.calls].some(
+      (call) =>
+        call.args.length === args.length &&
+        call.args.every((arg, idx) => args[idx] === arg)
+    );
+  }
 }
 
 type StubbedFunction<T> = T extends FunctionLike ? T : FunctionLike;
@@ -140,6 +178,7 @@ export function stubMethod<TObj, TKey extends keyof TObj>(
   obj[method] = instance.handler as TObj[TKey];
   instance.restoreCallback = (): void => {
     obj[method] = instance.original as TObj[TKey];
+    stubbedMethods.delete(instance);
   };
   stubbedMethods.add(instance);
   return instance;
