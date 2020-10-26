@@ -14,6 +14,7 @@ describe('Stub', () => {
   describe('returned', () => {
     it('should determine if stub returned a given value', () => {
       const stub = lib.stub((x: number) => x + x);
+      stub.passThrough();
       stub.handler(5);
       expect(stub.returned(10)).to.equal(true);
       expect(stub.returned(5)).to.equal(false);
@@ -250,15 +251,15 @@ describe('spy', () => {
 });
 
 describe('stub', () => {
-  it('should pass through by default', () => {
+  it('should stub a function', () => {
     const fn = (): number => 1500;
     const stub = lib.stub(fn);
-    expect(stub.handler()).to.equal(1500);
+    expect(stub.handler()).to.equal(undefined);
     expect(stub.original).to.equal(fn);
     expect([...stub.calls]).to.deep.equal([
       {
         args: [],
-        returnValue: 1500
+        returnValue: undefined
       }
     ]);
   });

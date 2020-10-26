@@ -163,9 +163,7 @@ export class Stub<T extends FunctionLike> {
    * @return Whether the value was ever returned or not
    */
   public returned(val: ReturnType<T>): boolean {
-    return [...this.calls].some(
-      (call) => call.returnValue === val
-    );
+    return [...this.calls].some((call) => call.returnValue === val);
   }
 }
 
@@ -197,14 +195,11 @@ export function stubMethod<TObj, TKey extends keyof TObj>(
 
 /**
  * Stubs a given function.
- * By default, behaves like a "spy" as pass-through to the original function
- * is automatically enabled.
  * @param fn Function to stub
  * @return Stubbed function
  */
 export function stub<T extends FunctionLike>(fn: T): Stub<T> {
   const result = new Stub<T>(fn);
-  result.passThrough();
   return result;
 }
 
