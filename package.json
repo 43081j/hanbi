@@ -18,14 +18,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/43081j/mock.git"
+    "url": "git+https://github.com/43081j/hanbi.git"
   },
   "author": "James Garbutt (https://github.com/43081j)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/43081j/mock/issues"
+    "url": "https://github.com/43081j/hanbi/issues"
   },
-  "homepage": "https://github.com/43081j/mock#readme",
+  "homepage": "https://github.com/43081j/hanbi#readme",
   "devDependencies": {
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.0.3",
