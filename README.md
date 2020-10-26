@@ -31,7 +31,7 @@ Creates a wrapped version of a given function which tracks any calls.
 ```ts
 const fn = () => 5;
 const stub = hanbi.stub(fn);
-stub.handler(); // 5
+stub.handler(); // undefined
 stub.called; // true
 ```
 
