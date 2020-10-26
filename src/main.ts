@@ -207,10 +207,10 @@ export function stub<T extends FunctionLike>(fn: T): Stub<T> {
  * Creates an anonymous spy.
  * @return Anonymous stub
  */
-export function spy(): Stub<(...args: unknown[]) => unknown> {
-  return new Stub<(...args: unknown[]) => unknown>(() => {
+export function spy<T extends FunctionLike = FunctionLike>(): Stub<T> {
+  return new Stub<T>((() => {
     return;
-  });
+  }) as T);
 }
 
 /**
