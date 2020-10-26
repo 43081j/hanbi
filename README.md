@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/hanbi.svg)](https://badge.fury.io/js/hanbi)
+[![npm](https://img.shields.io/npm/v/hanbi)](https://www.npmjs.com/package/hanbi)
 
 # hanbi
 
