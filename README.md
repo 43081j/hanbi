@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/hanbi.svg)](https://badge.fury.io/js/hanbi)
+
 # hanbi
 
 hanbi is a rather small and simple library for stubbing and spying on methods
@@ -134,5 +136,19 @@ class Stub {
    * This behaviour differs depending on what created the stub.
    */
   restore();
+
+  /**
+   * Asserts that the stub was called with a set of arguments
+   * @param args Arguments to assert for
+   * @return Whether they were passed or not
+   */
+  calledWith(...args);
+
+  /**
+   * Asserts that the stub returned a given value
+   * @param val Value to check for
+   * @return Whether the value was ever returned or not
+   */
+  returned(val);
 }
 ```
