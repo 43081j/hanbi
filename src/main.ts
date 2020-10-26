@@ -156,6 +156,17 @@ export class Stub<T extends FunctionLike> {
         call.args.every((arg, idx) => args[idx] === arg)
     );
   }
+
+  /**
+   * Asserts that the stub returned a given value
+   * @param val Value to check for
+   * @return Whether the value was ever returned or not
+   */
+  public returned(val: ReturnType<T>): boolean {
+    return [...this.calls].some(
+      (call) => call.returnValue === val
+    );
+  }
 }
 
 type StubbedFunction<T> = T extends FunctionLike ? T : FunctionLike;

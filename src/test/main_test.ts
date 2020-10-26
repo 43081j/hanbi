@@ -11,6 +11,15 @@ describe('Stub', () => {
     });
   });
 
+  describe('returned', () => {
+    it('should determine if stub returned a given value', () => {
+      const stub = lib.stub((x: number) => x + x);
+      stub.handler(5);
+      expect(stub.returned(10)).to.equal(true);
+      expect(stub.returned(5)).to.equal(false);
+    });
+  });
+
   describe('calledWith', () => {
     it('should determine if stub was called with args', () => {
       const stub = lib.spy();
