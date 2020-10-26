@@ -19,9 +19,9 @@ Creates a single "spy" function to be used as input into some other
 function.
 
 ```ts
-const test = spy();
-window.addEventListener('load', test.handler);
-test.called; // true once the event fires
+const spy = hanbi.spy();
+window.addEventListener('load', spy.handler);
+spy.called; // true once the event fires
 ```
 
 ## `stub(fn)`
@@ -30,9 +30,9 @@ Creates a wrapped version of a given function which tracks any calls.
 
 ```ts
 const fn = () => 5;
-const test = stub(fn);
-test.handler(); // 5
-test.called; // true
+const stub = hanbi.stub(fn);
+stub.handler(); // 5
+stub.called; // true
 ```
 
 ## `stubMethod(obj, method)`
@@ -46,9 +46,9 @@ class Foo {
   }
 }
 const instance = new Foo();
-const test = stubMethod(instance, 'myMethod');
+const stub = hanbi.stubMethod(instance, 'myMethod');
 instance.myMethod(); // undefined
-test.called; // true
+stub.called; // true
 ```
 
 # Stub API
