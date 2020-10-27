@@ -248,6 +248,12 @@ describe('spy', () => {
       }
     ]);
   });
+
+  it('should create a typed stub', () => {
+    const spy = lib.spy<(x: number) => string>();
+    const fn: (x: number) => string = spy.handler;
+    expect(fn(5)).to.equal(undefined);
+  });
 });
 
 describe('stub', () => {
