@@ -82,8 +82,13 @@ export class Stub<T extends FunctionLike> {
    */
   public constructor(fn: T) {
     this.original = fn;
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
-    this.handler = function (this: unknown, ...args: Parameters<T>): ReturnType<T> | undefined {
+    this.handler = function handler(
+      this: unknown,
+      ...args: Parameters<T>
+    ): ReturnType<T> | undefined {
+      // eslint-disable-next-line no-invalid-this
       return self._handleCall.call(self, this, args);
     } as T;
   }
@@ -94,7 +99,10 @@ export class Stub<T extends FunctionLike> {
    * @param args Arguments passed when being called
    * @return Return value of this call
    */
-  protected _handleCall(thisValue: unknown, args: Parameters<T>): ReturnType<T> | undefined {
+  protected _handleCall(
+    thisValue: unknown,
+    args: Parameters<T>
+  ): ReturnType<T> | undefined {
     const returnValue = this._returnFunction
       ? this._returnFunction(...args)
       : this._returnValue;
