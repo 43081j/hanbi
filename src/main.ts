@@ -4,6 +4,7 @@ type FunctionLike = (...args: any[]) => any;
 export interface StubCall<TArgs, TReturn> {
   readonly args: TArgs;
   readonly returnValue?: TReturn;
+  readonly thisValue: unknown;
 }
 
 /**
@@ -81,22 +82,25 @@ export class Stub<T extends FunctionLike> {
    */
   public constructor(fn: T) {
     this.original = fn;
-    this.handler = ((...args: Parameters<T>): ReturnType<T> | undefined => {
-      return this._handleCall(...args);
-    }) as T;
+    const self = this;
+    this.handler = function (this: unknown, ...args: Parameters<T>): ReturnType<T> | undefined {
+      return self._handleCall.call(self, this, args);
+    } as T;
   }
 
   /**
    * Processes an individual call to this stub
+   * @param thisValue Context of the call (`this`)
    * @param args Arguments passed when being called
    * @return Return value of this call
    */
-  protected _handleCall(...args: Parameters<T>): ReturnType<T> | undefined {
+  protected _handleCall(thisValue: unknown, args: Parameters<T>): ReturnType<T> | undefined {
     const returnValue = this._returnFunction
       ? this._returnFunction(...args)
       : this._returnValue;
     this._calls.add({
       args: args,
+      thisValue,
       returnValue
     });
     return returnValue;
