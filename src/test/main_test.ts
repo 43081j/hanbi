@@ -48,6 +48,7 @@ describe('Stub', () => {
       stub.handler(2);
       expect(stub.firstCall).to.deep.equal({
         args: [1],
+        thisValue: stub,
         returnValue: undefined
       });
     });
@@ -60,6 +61,7 @@ describe('Stub', () => {
       stub.handler(2);
       expect(stub.lastCall).to.deep.equal({
         args: [2],
+        thisValue: stub,
         returnValue: undefined
       });
     });
@@ -73,10 +75,12 @@ describe('Stub', () => {
 
       expect(stub.getCall(0)).to.deep.equal({
         args: [1],
+        thisValue: stub,
         returnValue: undefined
       });
       expect(stub.getCall(1)).to.deep.equal({
         args: [2],
+        thisValue: stub,
         returnValue: undefined
       });
     });
@@ -93,10 +97,12 @@ describe('Stub', () => {
       expect([...stub.calls]).to.deep.equal([
         {
           args: [1, 2, 3],
+          thisValue: stub,
           returnValue: undefined
         },
         {
           args: ['foo'],
+          thisValue: stub,
           returnValue: undefined
         }
       ]);
@@ -109,6 +115,7 @@ describe('Stub', () => {
       expect([...stub.calls]).to.deep.equal([
         {
           args: [],
+          thisValue: stub,
           returnValue: 1209
         }
       ]);
@@ -180,6 +187,7 @@ describe('Stub', () => {
       expect([...stub.calls]).to.deep.equal([
         {
           args: [],
+          thisValue: stub,
           returnValue: undefined
         }
       ]);
@@ -240,10 +248,12 @@ describe('spy', () => {
     expect([...spy.calls]).to.deep.equal([
       {
         args: [1, 2, 3],
+        thisValue: spy,
         returnValue: undefined
       },
       {
         args: [],
+        thisValue: spy,
         returnValue: undefined
       }
     ]);
@@ -265,6 +275,7 @@ describe('stub', () => {
     expect([...stub.calls]).to.deep.equal([
       {
         args: [],
+        thisValue: stub,
         returnValue: undefined
       }
     ]);
@@ -288,6 +299,26 @@ describe('stubMethod', () => {
     expect([...stub.calls]).to.deep.equal([
       {
         args: [],
+        thisValue: stub,
+        returnValue: undefined
+      }
+    ]);
+  });
+
+  it('should track thisValue', () => {
+    const Klass = class {
+      public someMethod(): number {
+        return 105;
+      }
+    };
+    const instance = new Klass();
+    const stub = lib.stubMethod(instance, 'someMethod');
+
+    instance.someMethod();
+    expect([...stub.calls]).to.deep.equal([
+      {
+        args: [],
+        thisValue: instance,
         returnValue: undefined
       }
     ]);
