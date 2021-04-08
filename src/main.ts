@@ -153,7 +153,9 @@ export class Stub<T extends FunctionLike> {
    * This behaviour differs depending on what created the stub.
    */
   public restore(): void {
-    this.restoreCallback?.();
+    if (this.restoreCallback) {
+      this.restoreCallback();
+    }
   }
 
   /**
