@@ -1,6 +1,6 @@
 {
   "name": "hanbi",
-  "version": "0.4.1",
+  "version": "1.0.0",
   "description": "A small javascript library for stubbing and spying on methods/functions.",
   "type": "module",
   "main": "./lib/cjs/main.cjs",
