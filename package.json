@@ -3,8 +3,8 @@
   "version": "0.4.1",
   "description": "A small javascript library for stubbing and spying on methods/functions.",
   "type": "module",
-  "main": "./lib/main.js",
-  "module": "./lib/esm/main.js",
+  "main": "./lib/cjs/main.cjs",
+  "module": "./lib/main.js",
   "exports": {
     "import": "./lib/main.js",
     "default": "./lib/cjs/main.cjs"
