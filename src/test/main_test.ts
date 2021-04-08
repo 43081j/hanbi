@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import * as lib from '../main';
+import * as lib from '../main.js';
 
 describe('Stub', () => {
   describe('called', () => {
@@ -279,6 +279,21 @@ describe('stub', () => {
         returnValue: undefined
       }
     ]);
+  });
+
+  it('should track thisValue', () => {
+    const context = {};
+    const fn = function fn(this: unknown): unknown {
+      // eslint-disable-next-line no-invalid-this
+      return this;
+    };
+
+    const stub = lib.stub(fn);
+    stub.passThrough();
+
+    const result = stub.handler.call(context);
+    expect(result).to.equal(context);
+    expect(stub.lastCall!.thisValue).to.equal(context);
   });
 });
 

@@ -104,7 +104,7 @@ export class Stub<T extends FunctionLike> {
     args: Parameters<T>
   ): ReturnType<T> | undefined {
     const returnValue = this._returnFunction
-      ? this._returnFunction(...args)
+      ? this._returnFunction.apply(thisValue, args)
       : this._returnValue;
     this._calls.add({
       args: args,
