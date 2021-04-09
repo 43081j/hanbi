@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A small javascript library for stubbing and spying on methods/functions.",
   "type": "module",
+  "types": "./lib/main.d.ts",
   "main": "./lib/cjs/main.cjs",
   "module": "./lib/main.js",
   "exports": {
