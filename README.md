@@ -51,6 +51,23 @@ instance.myMethod(); // undefined
 stub.called; // true
 ```
 
+## `restore()`
+
+Restores all stubs/spies to their original functions.
+
+```ts
+class Foo {
+  myMethod() {
+    return 5;
+  }
+}
+const instance = new Foo();
+const stub = hanbi.stubMethod(instance, 'myMethod');
+instance.myMethod(); // undefined
+restore();
+instance.myMethod(); // 5
+```
+
 # Stub API
 
 Each of the above mentioned entry points returns a `Stub` which has
