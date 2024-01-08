@@ -1,6 +1,6 @@
 {
   "name": "hanbi",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A small javascript library for stubbing and spying on methods/functions.",
   "type": "module",
   "types": "./lib/main.d.ts",
@@ -11,7 +11,8 @@
     "default": "./lib/cjs/main.cjs"
   },
   "files": [
-    "lib/!(test)"
+    "lib",
+    "!lib/test"
   ],
   "scripts": {
     "clean": "rimraf ./lib",
