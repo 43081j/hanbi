@@ -11,7 +11,8 @@
     "default": "./lib/cjs/main.cjs"
   },
   "files": [
-    "lib/!(test)"
+    "lib",
+    "!lib/test"
   ],
   "scripts": {
     "clean": "rimraf ./lib",
