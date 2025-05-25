@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type FunctionLike = (...args: any[]) => any;
+export type FunctionLike = (...args: any[]) => any;
 
 export interface StubCall<TArgs, TReturn> {
   readonly args: TArgs;
@@ -187,7 +187,7 @@ export class Stub<T extends FunctionLike> {
   }
 }
 
-type StubbedFunction<T> = T extends FunctionLike ? T : FunctionLike;
+export type StubbedFunction<T> = T extends FunctionLike ? T : FunctionLike;
 
 const stubbedMethods = new Set<{restore(): void}>();
 
