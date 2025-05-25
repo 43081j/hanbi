@@ -117,28 +117,34 @@ export class Stub<T extends FunctionLike> {
   /**
    * Specifies the value this stub should return
    * @param val Value to return
+   * @returns {this}
    */
-  public returns(val: ReturnType<T>): void {
+  public returns(val: ReturnType<T>): this {
     this._returnFunction = undefined;
     this._returnValue = val;
+    return this;
   }
 
   /**
    * Specifies a function to call to retrieve the return value of this
    * stub
    * @param fn Function to call
+   * @returns {this}
    */
-  public callsFake(fn: (...args: Parameters<T>) => ReturnType<T>): void {
+  public callsFake(fn: (...args: Parameters<T>) => ReturnType<T>): this {
     this._returnValue = undefined;
     this._returnFunction = fn as T;
+    return this;
   }
 
   /**
    * Enables pass-through, in that the original function is called when
    * this stub is called.
+   * @returns {this}
    */
-  public passThrough(): void {
+  public passThrough(): this {
     this.callsFake(this.original);
+    return this
   }
 
   /**
