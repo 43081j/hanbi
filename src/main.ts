@@ -214,6 +214,19 @@ export function stubMethod<TObj, TKey extends keyof TObj>(
 }
 
 /**
+ * Spies a method of a given object.
+ * @param obj Object the method belongs to
+ * @param method Method name to spy
+ * @return Stubbed method
+ */
+export function spyMethod<TObj, TKey extends keyof TObj>(
+  obj: TObj,
+  method: TKey
+): Stub<StubbedFunction<TObj[TKey]>> {
+  return stubMethod(obj, method).passThrough();
+}
+
+/**
  * Stubs a given function.
  * @param fn Function to stub
  * @return Stubbed function
