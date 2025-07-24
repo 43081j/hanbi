@@ -4,22 +4,19 @@
   "description": "A small javascript library for stubbing and spying on methods/functions.",
   "type": "module",
   "types": "./lib/main.d.ts",
-  "main": "./lib/cjs/main.cjs",
-  "module": "./lib/main.js",
+  "main": "./lib/main.js",
   "exports": {
-    "import": "./lib/main.js",
-    "default": "./lib/cjs/main.cjs"
+    "default": "./lib/main.js"
   },
   "files": [
     "lib",
     "!lib/test"
   ],
   "scripts": {
-    "clean": "rimraf ./lib",
+    "clean": "premove ./lib",
     "lint": "eslint \"src/**/*.ts\"",
     "prebuild": "npm run clean",
-    "build:cjs": "esbuild --outdir=lib/cjs --format=cjs --out-extension:.js=.cjs src/main.ts",
-    "build": "tsc && npm run build:cjs",
+    "build": "tsc",
     "test": "mocha lib",
     "format": "prettier --write \"src/**/*.ts\"",
     "prepare": "npm run build",
@@ -36,16 +33,16 @@
   },
   "homepage": "https://github.com/43081j/hanbi#readme",
   "devDependencies": {
+    "@eslint/js": "^9.31.0",
     "@types/chai": "^4.3.11",
     "@types/mocha": "^10.0.6",
-    "@typescript-eslint/eslint-plugin": "^6.14.0",
-    "@typescript-eslint/parser": "^6.14.0",
     "chai": "^4.3.10",
     "esbuild": "^0.25.0",
     "eslint": "^8.55.0",
-    "eslint-config-google": "^0.14.0",
     "mocha": "^10.2.0",
+    "premove": "^4.0.0",
     "prettier": "^3.1.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^8.38.0"
   }
 }
