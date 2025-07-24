@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type FunctionLike = (...args: any[]) => any;
+export type FunctionLike = (...args: any[]) => any;
 
 export interface StubCall<TArgs, TReturn> {
   readonly args: TArgs;
@@ -117,28 +117,34 @@ export class Stub<T extends FunctionLike> {
   /**
    * Specifies the value this stub should return
    * @param val Value to return
+   * @returns {this}
    */
-  public returns(val: ReturnType<T>): void {
+  public returns(val: ReturnType<T>): this {
     this._returnFunction = undefined;
     this._returnValue = val;
+    return this;
   }
 
   /**
    * Specifies a function to call to retrieve the return value of this
    * stub
    * @param fn Function to call
+   * @returns {this}
    */
-  public callsFake(fn: (...args: Parameters<T>) => ReturnType<T>): void {
+  public callsFake(fn: (...args: Parameters<T>) => ReturnType<T>): this {
     this._returnValue = undefined;
     this._returnFunction = fn as T;
+    return this;
   }
 
   /**
    * Enables pass-through, in that the original function is called when
    * this stub is called.
+   * @returns {this}
    */
-  public passThrough(): void {
+  public passThrough(): this {
     this.callsFake(this.original);
+    return this
   }
 
   /**
@@ -181,7 +187,7 @@ export class Stub<T extends FunctionLike> {
   }
 }
 
-type StubbedFunction<T> = T extends FunctionLike ? T : FunctionLike;
+export type StubbedFunction<T> = T extends FunctionLike ? T : FunctionLike;
 
 const stubbedMethods = new Set<{restore(): void}>();
 
@@ -205,6 +211,19 @@ export function stubMethod<TObj, TKey extends keyof TObj>(
   };
   stubbedMethods.add(instance);
   return instance;
+}
+
+/**
+ * Spies a method of a given object.
+ * @param obj Object the method belongs to
+ * @param method Method name to spy
+ * @return Stubbed method
+ */
+export function spyMethod<TObj, TKey extends keyof TObj>(
+  obj: TObj,
+  method: TKey
+): Stub<StubbedFunction<TObj[TKey]>> {
+  return stubMethod(obj, method).passThrough();
 }
 
 /**
