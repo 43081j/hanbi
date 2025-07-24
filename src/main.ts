@@ -117,7 +117,7 @@ export class Stub<T extends FunctionLike> {
   /**
    * Specifies the value this stub should return
    * @param val Value to return
-   * @returns {this}
+   * @return {this}
    */
   public returns(val: ReturnType<T>): this {
     this._returnFunction = undefined;
@@ -129,7 +129,7 @@ export class Stub<T extends FunctionLike> {
    * Specifies a function to call to retrieve the return value of this
    * stub
    * @param fn Function to call
-   * @returns {this}
+   * @return {this}
    */
   public callsFake(fn: (...args: Parameters<T>) => ReturnType<T>): this {
     this._returnValue = undefined;
@@ -140,11 +140,11 @@ export class Stub<T extends FunctionLike> {
   /**
    * Enables pass-through, in that the original function is called when
    * this stub is called.
-   * @returns {this}
+   * @return {this}
    */
   public passThrough(): this {
     this.callsFake(this.original);
-    return this
+    return this;
   }
 
   /**
