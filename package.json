@@ -34,15 +34,15 @@
   "homepage": "https://github.com/43081j/hanbi#readme",
   "devDependencies": {
     "@eslint/js": "^9.31.0",
-    "@types/chai": "^4.3.11",
+    "@types/chai": "^5.2.2",
     "@types/mocha": "^10.0.6",
-    "chai": "^4.3.10",
-    "esbuild": "^0.25.0",
-    "eslint": "^8.55.0",
-    "mocha": "^10.2.0",
+    "chai": "^5.2.1",
+    "esbuild": "^0.25.8",
+    "eslint": "^9.31.0",
+    "mocha": "^11.7.1",
     "premove": "^4.0.0",
-    "prettier": "^3.1.1",
-    "typescript": "^5.3.3",
+    "prettier": "^3.6.2",
+    "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0"
   }
 }
