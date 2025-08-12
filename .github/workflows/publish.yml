@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -31,7 +31,7 @@ jobs:
     env:
       NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
         with:
           node-version: 22.x
