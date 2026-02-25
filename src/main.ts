@@ -200,7 +200,7 @@ export class Stub<T extends FunctionLike> {
 
 export type StubbedFunction<T> = T extends FunctionLike ? T : FunctionLike;
 
-const stubbedMethods = new Set<{ restore(): void }>();
+const stubbedMethods = new Set<{restore(): void}>();
 
 /**
  * Stubs a method of a given object.
