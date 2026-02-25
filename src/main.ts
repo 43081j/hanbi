@@ -126,6 +126,17 @@ export class Stub<T extends FunctionLike> {
   }
 
   /**
+   * Specifies the value this stub should return, but as a promise
+   * @param val Value to return
+   * @return {this}
+   */
+  public resolves(val: Awaited<ReturnType<T>>): this {
+    this._returnFunction = undefined;
+    this._returnValue = Promise.resolve(val) as ReturnType<T>;
+    return this;
+  }
+
+  /**
    * Specifies a function to call to retrieve the return value of this
    * stub
    * @param fn Function to call

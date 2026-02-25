@@ -131,6 +131,12 @@ class Stub {
   returns(val);
 
   /**
+   * Specifies the resolved value when stubbing an async function
+   * @param val Value the promise should resolve to
+   */
+  resolves(val);
+
+  /**
    * Specifies a function to call to retrieve the return value of this
    * stub
    * @param fn Function to call
