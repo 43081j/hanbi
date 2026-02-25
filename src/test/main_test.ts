@@ -1,4 +1,4 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import * as lib from '../main.js';
 
 describe('Stub', () => {
@@ -140,6 +140,16 @@ describe('Stub', () => {
       expect(stub.handler()).to.equal(1209);
       stub.returns('foo');
       expect(stub.handler()).to.equal('foo');
+    });
+  });
+
+  describe('resolves', () => {
+    it('should return a promise', async () => {
+      const stub = lib.spy();
+      stub.resolves(1209);
+      const result = stub.handler();
+      expect(result).to.be.instanceOf(Promise);
+      expect(await result).to.equal(1209);
     });
   });
 
@@ -318,6 +328,21 @@ describe('stubMethod', () => {
         returnValue: undefined
       }
     ]);
+  });
+
+  it('stubMethod resolves', async () => {
+    const Klass = class {
+      public async someMethod(): Promise<number> {
+        return 105;
+      }
+    };
+    const instance = new Klass();
+    const stub = lib.stubMethod(instance, 'someMethod');
+    stub.resolves(1209);
+
+    const result = stub.handler();
+    expect(result).to.be.instanceOf(Promise);
+    expect(await result).to.equal(1209);
   });
 
   it('should track thisValue', () => {
