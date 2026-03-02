@@ -1,3 +1,5 @@
+import { HANBI_SYMBOL } from "./symbol.js";
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type FunctionLike = (...args: any[]) => any;
 
@@ -88,7 +90,6 @@ export class Stub<T extends FunctionLike> {
       this: unknown,
       ...args: Parameters<T>
     ): ReturnType<T> | undefined {
-      // eslint-disable-next-line no-invalid-this
       return self._handleCall.call(self, this, args);
     } as T;
   }
@@ -185,11 +186,16 @@ export class Stub<T extends FunctionLike> {
   public returned(val: ReturnType<T>): boolean {
     return [...this.calls].some((call) => call.returnValue === val);
   }
+
+  // @ts-expect-error - Requires changing the 'lib' compiler option to 'esnext' or later.
+  [Symbol?.dispose ?? HANBI_SYMBOL](): void {
+    this.restore();
+  }
 }
 
 export type StubbedFunction<T> = T extends FunctionLike ? T : FunctionLike;
 
-const stubbedMethods = new Set<{restore(): void}>();
+const stubbedMethods = new Set<{ restore(): void }>();
 
 /**
  * Stubs a method of a given object.

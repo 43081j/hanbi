@@ -1,5 +1,6 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import * as lib from '../main.js';
+import { HANBI_SYMBOL } from '../symbol.js';
 
 describe('Stub', () => {
   describe('called', () => {
@@ -284,7 +285,6 @@ describe('stub', () => {
   it('should track thisValue', () => {
     const context = {};
     const fn = function fn(this: unknown): unknown {
-      // eslint-disable-next-line no-invalid-this
       return this;
     };
 
@@ -355,6 +355,21 @@ describe('stubMethod', () => {
       stub.restore();
 
       expect(instance.someMethod).to.equal(original);
+    });
+  });
+
+  describe('[Symbol.dispose]', () => {
+    it('calls restore on dispose', () => {
+      const s = lib.stub(() => { });
+      let restoreCalled = false;
+      s.restoreCallback = () => { restoreCalled = true; };
+
+      // @ts-expect-error - Requires changing the 'lib' compiler option to 'esnext' or later.
+      const disposeSymbol = Symbol.dispose ?? HANBI_SYMBOL;
+      // @ts-expect-error - Requires changing the 'lib' compiler option to 'esnext' or later.
+      s[disposeSymbol]();
+
+      expect(restoreCalled).to.equal(true);
     });
   });
 });

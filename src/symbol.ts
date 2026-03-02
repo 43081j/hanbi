@@ -1,0 +1,1 @@
+export const HANBI_SYMBOL = Symbol('hanbi');
