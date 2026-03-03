@@ -1,6 +1,6 @@
-import { expect } from 'chai';
+import {expect} from 'chai';
 import * as lib from '../main.js';
-import { HANBI_SYMBOL } from '../symbol.js';
+import {HANBI_SYMBOL} from '../symbol.js';
 
 describe('Stub', () => {
   describe('called', () => {
@@ -360,13 +360,13 @@ describe('stubMethod', () => {
 
   describe('[Symbol.dispose]', () => {
     it('calls restore on dispose', () => {
-      const s = lib.stub(() => { });
+      const s = lib.stub(() => {});
       let restoreCalled = false;
-      s.restoreCallback = () => { restoreCalled = true; };
+      s.restoreCallback = () => {
+        restoreCalled = true;
+      };
 
-      // @ts-expect-error - Requires changing the 'lib' compiler option to 'esnext' or later.
       const disposeSymbol = Symbol.dispose ?? HANBI_SYMBOL;
-      // @ts-expect-error - Requires changing the 'lib' compiler option to 'esnext' or later.
       s[disposeSymbol]();
 
       expect(restoreCalled).to.equal(true);
