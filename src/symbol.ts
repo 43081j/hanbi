@@ -1,1 +1,1 @@
-export const HANBI_SYMBOL = Symbol('hanbi');
+export const DISPOSE_SYMBOL = Symbol?.dispose ?? Symbol('hanbi.dispose');

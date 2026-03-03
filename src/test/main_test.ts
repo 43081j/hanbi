@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import * as lib from '../main.js';
-import {HANBI_SYMBOL} from '../symbol.js';
+import {DISPOSE_SYMBOL} from '../symbol.js';
 
 describe('Stub', () => {
   describe('called', () => {
@@ -366,8 +366,7 @@ describe('stubMethod', () => {
         restoreCalled = true;
       };
 
-      const disposeSymbol = Symbol.dispose ?? HANBI_SYMBOL;
-      s[disposeSymbol]();
+      s[DISPOSE_SYMBOL]();
 
       expect(restoreCalled).to.equal(true);
     });

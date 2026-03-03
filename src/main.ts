@@ -1,4 +1,4 @@
-import {HANBI_SYMBOL} from './symbol.js';
+import {DISPOSE_SYMBOL} from './symbol.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type FunctionLike = (...args: any[]) => any;
@@ -187,7 +187,7 @@ export class Stub<T extends FunctionLike> {
     return [...this.calls].some((call) => call.returnValue === val);
   }
 
-  [Symbol?.dispose ?? HANBI_SYMBOL](): void {
+  [DISPOSE_SYMBOL](): void {
     this.restore();
   }
 }
