@@ -1,5 +1,6 @@
 import {expect} from 'chai';
 import * as lib from '../main.js';
+import {DISPOSE_SYMBOL} from '../symbol.js';
 
 describe('Stub', () => {
   describe('called', () => {
@@ -294,7 +295,6 @@ describe('stub', () => {
   it('should track thisValue', () => {
     const context = {};
     const fn = function fn(this: unknown): unknown {
-      // eslint-disable-next-line no-invalid-this
       return this;
     };
 
@@ -380,6 +380,20 @@ describe('stubMethod', () => {
       stub.restore();
 
       expect(instance.someMethod).to.equal(original);
+    });
+  });
+
+  describe('[Symbol.dispose]', () => {
+    it('calls restore on dispose', () => {
+      const s = lib.stub(() => {});
+      let restoreCalled = false;
+      s.restoreCallback = () => {
+        restoreCalled = true;
+      };
+
+      s[DISPOSE_SYMBOL]();
+
+      expect(restoreCalled).to.equal(true);
     });
   });
 });

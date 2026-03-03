@@ -68,6 +68,18 @@ restore();
 instance.myMethod(); // 5
 ```
 
+If you're on a engine that supports `using`/`Symbol.dispose`, you can also use:
+
+```ts
+it('myMethod', () => {
+  using stub = hanbi.stubMethod(instance, 'myMethod');
+
+  stub.returns('hello world');
+  assert.strictEqual(instance.myMethod(), 'hello world');
+  // Stub automatically restored when scope exits
+});
+```
+
 # Stub API
 
 Each of the above mentioned entry points returns a `Stub` which has
