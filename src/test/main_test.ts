@@ -1,4 +1,5 @@
 import {expect} from 'chai';
+import {describe, it} from 'mocha';
 import * as lib from '../main.js';
 import {DISPOSE_SYMBOL} from '../symbol.js';
 
